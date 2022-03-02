@@ -1,16 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/meal_item.dart';
 import './dummy_data.dart';
-class CategoryMealsScreen extends StatelessWidget{
+import './models/meal.dart';
+class CategoryMealsScreen extends StatefulWidget{
   static const routeName = '/category-meals';
   @override
-  Widget build(BuildContext context) {
+  State<StatefulWidget> createState() {
+    return CategoryMealsScreenState();
+  }
+}
+class CategoryMealsScreenState extends State<CategoryMealsScreen>{
+  late String categoryTitle;
+  late List<Meal> displayMeals;
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+  @override
+  void didChangeDependencies(){
     final routeArgs = ModalRoute.of(context)?.settings.arguments as Map<String,String>;
-    final categoryTitle = routeArgs['title'];
+    categoryTitle = routeArgs['title'] as String;
     final categoryId = routeArgs['id'];
-    final categoryMeals = DUMMY_MEALS.where((meal) {
+    displayMeals = DUMMY_MEALS.where((meal) {
       return meal.categories.contains(categoryId);
     }).toList();
+  }
+  void _removeMeal(String mealId){
+     setState(() {
+       displayMeals.removeWhere((meal) => meal.id == mealId);
+     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(categoryTitle as String),
@@ -19,14 +44,17 @@ class CategoryMealsScreen extends StatelessWidget{
         child: ListView.builder(
           itemBuilder: (ctx,index){
             return MealItem(
-                id: categoryMeals[index].id,
-                title: categoryMeals[index].title,
-                imageUrl: categoryMeals[index].imageUrl,
-                duration: categoryMeals[index].duration,
-                complexity: categoryMeals[index].complexity,
-                affordability: categoryMeals[index].affordability);
+                id: displayMeals[index].id,
+                title: displayMeals[index].title,
+                imageUrl: displayMeals[index].imageUrl,
+                duration: displayMeals[index].duration,
+                complexity: displayMeals[index].complexity,
+                affordability: displayMeals[index].affordability,
+               removeItem: _removeMeal,
+            );
+
           },
-          itemCount: categoryMeals.length,
+          itemCount: displayMeals.length,
         ),
       )
     );

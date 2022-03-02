@@ -5,7 +5,7 @@ import './categories_meals_screen.dart';
 import './categories_screen.dart';
 import './meal_details.dart';
 import './tabs_screen.dart';
-
+import './filters_screen.dart';
 void main() {
   runApp(MaterialApp(
     theme: ThemeData(
@@ -25,7 +25,8 @@ void main() {
     routes: {
       '/': (ctx) => TabsScreen(),
       MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
-      CategoryMealsScreen.routeName:(ctx) => CategoryMealsScreen()
+      CategoryMealsScreen.routeName:(ctx) => CategoryMealsScreen(),
+      FilterScreen.rounteName:(ctx) => FilterScreen()
     },
     onGenerateRoute: (settings){
       return MaterialPageRoute(builder: (ctx) => CategoryMealsScreen());
