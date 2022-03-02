@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import './categories_meals_screen.dart';
 import './categories_screen.dart';
 import './meal_details.dart';
+import './tabs_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -19,10 +20,10 @@ void main() {
         )
       )
     ),
-    home: CategoriesScreen(),
+    //home: CategoriesScreen(),
     //initialRoute: '/',
     routes: {
-      //'/': (ctx) => CategoriesScreen(),
+      '/': (ctx) => TabsScreen(),
       MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
       CategoryMealsScreen.routeName:(ctx) => CategoryMealsScreen()
     },
