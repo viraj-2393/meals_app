@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import './categories_meals_screen.dart';
 import './categories_screen.dart';
-import './categories_screen.dart';
+import './meal_details.dart';
+
 void main() {
   runApp(MaterialApp(
     theme: ThemeData(
@@ -19,8 +20,17 @@ void main() {
       )
     ),
     home: CategoriesScreen(),
+    //initialRoute: '/',
     routes: {
-      '/category-meals':(ctx) => CategoryMealsScreen()
+      //'/': (ctx) => CategoriesScreen(),
+      MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+      CategoryMealsScreen.routeName:(ctx) => CategoryMealsScreen()
+    },
+    onGenerateRoute: (settings){
+      return MaterialPageRoute(builder: (ctx) => CategoryMealsScreen());
+    },
+    onUnknownRoute: (settings){
+      return MaterialPageRoute(builder: (ctx) => CategoriesScreen());
     },
 
   ));
